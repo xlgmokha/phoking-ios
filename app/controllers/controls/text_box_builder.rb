@@ -10,6 +10,6 @@ class TextBoxBuilder
     self
   end
   def build
-    @text_field
+    TextBox.new(@text_field)
   end
 end

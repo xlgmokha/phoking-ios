@@ -1,5 +1,5 @@
 class Build
-  def self.text_field(coordinates)
+  def self.textbox(coordinates)
     TextBoxBuilder.new(coordinates)
   end
 end
