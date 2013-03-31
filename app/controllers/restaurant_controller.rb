@@ -19,15 +19,22 @@ class RestaurantController < UIViewController
     @add.center = CGPointMake(self.view.frame.size.width / 2, @text_field.center.y + 40)
     self.view.addSubview @add
     @add.when(UIControlEventTouchUpInside) do
-      @add.enabled = false
-      @text_field.enabled = false
-      p @text_field.text
-      location = Restaurant.new(@text_field.text, 1, 1)
-      location.save
+      begin
+        @add.enabled = false
+        @text_field.enabled = false
+        BW::Location.get do |result|
+          BW::Location.stop
+          location = Restaurant.new(@text_field.text, result[:to].latitude, result[:to].longitude)
+          location.save
+        end
+      rescue Exception => e
+        puts e.message
+        puts e.backtrace.inspect
+      end
     end
 
-    access_twitter
-    end
+    #access_twitter
+  end
 
   def access_twitter
     @account_repository = ACAccountStore.alloc.init
