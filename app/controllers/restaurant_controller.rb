@@ -1,7 +1,7 @@
-class LocationController < UIViewController
+class RestaurantController < UIViewController
   def viewDidLoad
     super
-    self.title = "Location"
+    self.title = "Restaurant"
     self.view.backgroundColor = UIColor.whiteColor
 
     @text_field = UITextField.alloc.initWithFrame [[0,0], [160, 26]]
@@ -13,7 +13,7 @@ class LocationController < UIViewController
     self.view.addSubview @text_field
 
     @add = UIButton.buttonWithType(UIButtonTypeRoundedRect)
-    @add.setTitle("Add Location", forState:UIControlStateNormal)
+    @add.setTitle("Add Restaurant", forState:UIControlStateNormal)
     @add.setTitle("Loading", forState:UIControlStateDisabled)
     @add.sizeToFit
     @add.center = CGPointMake(self.view.frame.size.width / 2, @text_field.center.y + 40)
@@ -22,7 +22,7 @@ class LocationController < UIViewController
       @add.enabled = false
       @text_field.enabled = false
       p @text_field.text
-      location = Location.new(@text_field.text, 1, 1)
+      location = Restaurant.new(@text_field.text, 1, 1)
       location.save
     end
 
