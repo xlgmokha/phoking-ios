@@ -22,7 +22,7 @@ class LocationController < UIViewController
       @add.enabled = false
       @text_field.enabled = false
       p @text_field.text
-      location = Location.new(@text_field, 1, 1)
+      location = Location.new(@text_field.text, 1, 1)
       location.save
     end
 

@@ -9,7 +9,7 @@ class Location
 
   def save
     begin
-      BW::HTTP.post("http://localhost:3000/api/vi/restaurants", payload: {name: @name, latitude: @latitude, longitude: @longitude} ) do |response|
+      BW::HTTP.post("http://localhost:3000/api/v1/restaurants", payload: { restaurant: { name: @name, latitude: @latitude, longitude: @longitude } } ) do |response|
         p response
       end
     rescue Exception => e
