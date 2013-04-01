@@ -7,6 +7,19 @@ class SearchController < UIViewController
   end
 
   def push
-    self.navigationController.pushViewController(RestaurantController.alloc.initWithNibName(nil, bundle: nil), animated: true)
+    controller = @controller_factory.create(RestaurantController)
+    self.navigationController.pushViewController(controller, animated: true)
+  end
+
+  def bind_to(controller_factory)
+    @controller_factory = controller_factory
+  end
+end
+
+class ControllerFactory
+  def create(controller)
+    instance = controller.alloc
+    instance.bind_to(self)
+    instance.initWithNibName(nil, bundle: nil)
   end
 end
