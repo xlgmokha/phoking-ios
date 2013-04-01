@@ -1,4 +1,4 @@
-class AddRestaurantCommand
+class AddReviewCommand
   def initialize(restaurant_name_textbox)
     @textbox = restaurant_name_textbox
   end
