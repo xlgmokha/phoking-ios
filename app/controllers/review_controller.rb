@@ -12,8 +12,8 @@ class ReviewController < UIViewController
     add_control(button)
   end
 
-  def add_control(view)
-    view.add_to(self.view)
+  def add_control(control)
+    control.add_to(self.view)
   end
 
   def bind_to(controller_factory)
