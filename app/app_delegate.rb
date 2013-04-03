@@ -30,6 +30,9 @@ class AppDelegate
         p form.render
         #location = Restaurant.new(@textbox.text, result[:to].latitude, result[:to].longitude)
         #location.save
+        BW::HTTP.post("http://localhost:3000/api/v1/reviews", to_hash ) do |response|
+          p response
+        end
       end
     end
 
@@ -38,5 +41,20 @@ class AppDelegate
     @window.makeKeyAndVisible
 
     true
+  end
+
+  def to_hash
+    {
+      payload:
+      {
+        review:
+        {
+          uid: 1,
+          latitude: @latitude,
+          longitude: @longitude,
+          ratings: [{score: 1, category: "broth"}]
+        }
+      }
+    }
   end
 end
