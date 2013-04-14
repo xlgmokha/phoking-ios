@@ -10,14 +10,14 @@ class AppDelegate
         {
           title: "Review",
           rows: [
-            { title: "Broth", key: :broth, type: :slider, range: (1..10), value: 7 },
-            { title: "Beef", key: :beef, type: :slider, range: (1..10), value: 7 },
-            { title: "Noodles", key: :noodles, type: :slider, range: (1..10), value: 7 },
-            { title: "Vegetables", key: :vegetables, type: :slider, range: (1..10), value: 7 },
-            { title: "Bowl Size", key: :bowl, type: :slider, range: (1..10), value: 7 },
-            { title: "Sauces", key: :sauces, type: :slider, range: (1..10), value: 7 },
-            { title: "Presentation", key: :presentation, type: :slider, range: (1..10), value: 7 },
-            { title: "Ambiance", key: :ambiance, type: :slider, range: (1..10), value: 7 },
+            { title: "Broth", key: :Broth, type: :slider, range: (1..10), value: 7 },
+            { title: "Beef", key: :Beef, type: :slider, range: (1..10), value: 7 },
+            { title: "Noodles", key: :Noodles, type: :slider, range: (1..10), value: 7 },
+            { title: "Vegetables", key: :Vegetables, type: :slider, range: (1..10), value: 7 },
+            { title: "Bowl Size", key: :Bowl, type: :slider, range: (1..10), value: 7 },
+            { title: "Sauces", key: :Sauces, type: :slider, range: (1..10), value: 7 },
+            { title: "Presentation", key: :Presentation, type: :slider, range: (1..10), value: 7 },
+            { title: "Ambiance", key: :Ambiance, type: :slider, range: (1..10), value: 7 },
           ]
         },
         {
@@ -30,8 +30,9 @@ class AppDelegate
         p form.render
         #location = Restaurant.new(@textbox.text, result[:to].latitude, result[:to].longitude)
         #location.save
-        BW::HTTP.post("http://localhost:3000/api/v1/reviews", to_hash ) do |response|
-          p response
+        #{:broth=>7, :beef=>7, :noodles=>7, :vegetables=>7, :bowl=>7, :sauces=>7, :presentation=>7.40510940551758, :ambiance=>4.34687423706055}
+        BW::HTTP.post("http://localhost:3000/api/v1/reviews", to_hash(form.render) ) do |response|
+          #p response
         end
       end
     end
@@ -43,8 +44,8 @@ class AppDelegate
     true
   end
 
-  def to_hash
-    {
+  def to_hash(hash)
+    result = {
       payload:
       {
         review:
@@ -52,9 +53,11 @@ class AppDelegate
           uid: 1,
           latitude: @latitude,
           longitude: @longitude,
-          ratings: [{score: 1, category: "broth"}]
+          ratings: hash.keys.map { |key| {:score => hash[key], :category => key} }
         }
       }
     }
+    p result
+    result
   end
 end
